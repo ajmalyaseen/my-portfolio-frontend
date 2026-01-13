@@ -1,65 +1,157 @@
-import Image from "next/image";
+import Link from "next/link";
+import ContactForm from "@/app/components/ContactForm";
+import ProjectCard, { GalleryItem } from "@/app/components/ProjectSection";
+import { API_BASE_URL, CONTACT_EMAIL } from "@/lib/config";
 
-export default function Home() {
+/**
+ * Fetches gallery projects from the backend API.
+ * Returns an empty array if the fetch fails.
+ */
+async function getProjects() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/gallery/`, { cache: "no-store" });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const projects = await getProjects();
+
+  // Define steps for the workflow section
+  const steps = [
+    {
+      num: "01",
+      title: "Architect",
+      desc: "Analyzing requirements and designing robust database schemas and API structures."
+    },
+    {
+      num: "02",
+      title: "Develop",
+      desc: "Building scalable backend systems with Django and crafting clean server-side logic."
+    },
+    {
+      num: "03",
+      title: "Deploy & Integrate",
+      desc: "Ensuring secure deployments and seamless integration with modern frontend technologies."
+    }
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen selection:bg-blue-500 font-sans pt-16 md:pt-12 bg-spotlight">
+      {/* Hero Section */}
+      <main className="max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col justify-center min-h-[60vh] md:min-h-[90vh] relative">
+        {/* Subtle decorative background element */}
+        <div className="absolute top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -z-10 animate-float"></div>
+
+        {/* Status Badge */}
+        <div className="flex items-center space-x-3 mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-text-muted/80">
+            Calicut, Kerala, India
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Main Heading focusing on Backend Engineering */}
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 md:mb-8 text-foreground animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100">
+          Architecting <span className="text-gradient italic">scalable</span> <br />
+          backend systems.
+        </h1>
+
+        {/* Brief Introduction */}
+        <p className="text-base md:text-xl text-text-muted max-w-xl leading-relaxed mb-8 md:mb-10 font-normal animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+          Hi, I'm a <span className="text-foreground font-semibold">Backend Engineer</span> specialized in building robust server-side logic with <span className="text-foreground">Django</span>. I also have a solid foundation in frontend tools like <span className="text-foreground">React</span> and <span className="text-foreground">Next.js</span>.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-5 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
+          <Link href="/about">
+            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-3.5 rounded-full font-bold transition-all active:scale-95 text-sm md:text-base cursor-pointer shadow-lg shadow-primary/20 hover:shadow-primary/40">
+              About Me
+            </button>
+          </Link>
+
+          <Link href="/projects" className="group flex items-center gap-2 text-foreground font-bold py-3.5 px-6 hover:text-primary transition-colors text-sm md:text-base">
+            View Projects
+            <span className="group-hover:translate-x-1 transition-transform text-primary">→</span>
+          </Link>
         </div>
       </main>
+
+      {/* Featured Projects Section */}
+      <section className="py-24 px-6 max-w-7xl mx-auto border-t border-card-border/50">
+        <h2 className="text-4xl font-bold mb-16 text-center tracking-tight">Featured Projects</h2>
+
+        {/* Projects Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.isArray(projects) && projects.length > 0 ? (
+            projects.map((project: GalleryItem) => (
+              <ProjectCard key={project.id} item={project} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-20 text-text-muted bg-card-bg/50 rounded-3xl border border-dashed border-card-border">
+              <p>No projects found or connection failed.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Workflow Section */}
+      <section className="max-w-6xl mx-auto px-6 py-32 border-t border-card-border/50 bg-card-bg/10 rounded-[3rem] my-20">
+        <h2 className="text-2xl font-bold mb-16 tracking-tight text-text-muted uppercase italic flex items-center gap-3">
+          <span className="h-[1px] w-8 bg-primary"></span>
+          The Technical Workflow
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {steps.map((step) => (
+            <div key={step.num} className="group p-10 rounded-[2.5rem] bg-card-bg border border-card-border hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2">
+              <span className="text-6xl font-black text-primary/10 group-hover:text-primary/20 transition-colors duration-500">
+                {step.num}
+              </span>
+              <h3 className="text-2xl font-bold mt-6 mb-4 text-foreground">{step.title}</h3>
+              <p className="text-text-muted leading-relaxed text-base font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                {step.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="max-w-6xl mx-auto px-6 py-32 border-t border-card-border/50 relative overflow-hidden" id="contact">
+        {/* Subtle background glow for contact */}
+        <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 className="text-4xl md:text-7xl font-bold tracking-tighter mb-8 text-foreground leading-[1.1]">
+              Let's build <br />
+              <span className="text-gradient italic font-light">something powerful.</span>
+            </h2>
+            <p className="text-text-muted text-lg md:text-xl max-w-sm leading-relaxed font-medium mb-12 opacity-90">
+              I'm specialized in backend development and open for collaborations or full-time roles.
+            </p>
+
+            <div className="space-y-6">
+              <p className="text-xs font-bold text-text-muted uppercase tracking-[0.2em]">Connect with me</p>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-2xl md:text-3xl font-bold text-foreground hover:text-primary transition-all duration-300 underline decoration-primary/30 decoration-2 underline-offset-8 hover:decoration-primary">
+                {CONTACT_EMAIL}
+              </a>
+            </div>
+          </div>
+
+          <div className="w-full flex md:justify-end">
+            <ContactForm />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
