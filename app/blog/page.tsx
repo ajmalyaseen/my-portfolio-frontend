@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { API_BASE_URL, CLOUDINARY_BASE_URL } from "@/lib/config";
 
+
 /**
  * Extracts a text excerpt from HTML content.
  * @param content - The HTML content string.
@@ -52,6 +53,7 @@ async function getBlogs() {
     }
 }
 
+export const dynamic = 'force-dynamic';
 export default async function Blog() {
     const allPosts = await getBlogs();
 
