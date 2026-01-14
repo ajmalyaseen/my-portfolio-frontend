@@ -39,12 +39,30 @@ export default function BlogContent({ post }: { post: BlogPost }) {
     const [commentInput, setCommentInput] = useState({ name: "", comment: "" });
     const [loading, setLoading] = useState(false);
 
-    // Check local storage on mount to see if user has already liked this blog
+    // Sync like status with Backend on mount (Cross-browser IP check)
     useEffect(() => {
-        const localStatus = localStorage.getItem(`liked_blog_${post.id}`);
-        if (localStatus === "true") {
-            setIsLiked(true);
-        }
+        const checkLikeStatus = async () => {
+            try {
+                const res = await fetch(`${BASE_URL}/api/blog/${post.id}/like/`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setIsLiked(data.is_liked);
+                    // Also sync local storage as a fallback
+                    if (data.is_liked) {
+                        localStorage.setItem(`liked_blog_${post.id}`, "true");
+                    } else {
+                        localStorage.removeItem(`liked_blog_${post.id}`);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to sync like status:", error);
+                // Fallback to local storage if API fails
+                const localStatus = localStorage.getItem(`liked_blog_${post.id}`);
+                if (localStatus === "true") setIsLiked(true);
+            }
+        };
+
+        checkLikeStatus();
     }, [post.id]);
 
     // Handle like functionality with Optimistic UI updates
@@ -113,10 +131,15 @@ export default function BlogContent({ post }: { post: BlogPost }) {
                 body: JSON.stringify(commentInput),
             });
             if (res.ok) {
-                const newComments = await res.json();
-                setComments(newComments);
+                const newComment = await res.json();
+
+                // Append the new comment to the current list
+                setComments((prev) => [newComment, ...prev]);
+
                 // Clear form fields
                 setCommentInput({ name: "", comment: "" });
+            } else {
+                console.error("Failed to post comment. Server returned:", res.status);
             }
         } catch (error) {
             console.error("Comment submission failed", error);

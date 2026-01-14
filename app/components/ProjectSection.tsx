@@ -35,11 +35,31 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
     const [likes, setLikes] = useState(item.total_like || 0);
     const [isLiked, setIsLiked] = useState(false);
 
-    // --- EFFECT: PERSISTENT LIKE STATUS ---
-    // Check local storage to see if the user has already liked this project
+    // --- EFFECT: SYNC LIKE STATUS FROM BACKEND ---
+    // Fetch the actual status from the server based on the user's IP (for cross-browser sync)
     useEffect(() => {
-        const localStatus = localStorage.getItem(`liked_project_${item.id}`);
-        if (localStatus === "true") setIsLiked(true);
+        const syncStatus = async () => {
+            try {
+                const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setIsLiked(data.is_liked);
+                    // Sync local storage fallback
+                    if (data.is_liked) {
+                        localStorage.setItem(`liked_project_${item.id}`, "true");
+                    } else {
+                        localStorage.removeItem(`liked_project_${item.id}`);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to sync project like status:", error);
+                // Fallback to local storage if API is down
+                const localStatus = localStorage.getItem(`liked_project_${item.id}`);
+                if (localStatus === "true") setIsLiked(true);
+            }
+        };
+
+        syncStatus();
     }, [item.id]);
 
     // --- INTERACTION: LIKE BUTTON HANDLER ---
