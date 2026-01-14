@@ -72,16 +72,28 @@ export default function BlogContent({ post }: { post: BlogPost }) {
                 throw new Error("Server synchronization failed");
             }
 
-        } catch (error) {
-            console.error("Like failed, reverting state...", error);
-            // C. Error Handling: Revert UI if backend request fails
-            if (wasLiked) {
-                setLikes((prev) => prev + 1);
+            const data = await res.json();
+
+            // C. Sync with Backend Truth
+            // Update the local state with the actual count and status from the server
+            setLikes(data.total_like);
+
+            if (data.message === "liked") {
                 setIsLiked(true);
                 localStorage.setItem(`liked_blog_${post.id}`, "true");
             } else {
-                setLikes((prev) => prev - 1);
                 setIsLiked(false);
+                localStorage.removeItem(`liked_blog_${post.id}`);
+            }
+
+        } catch (error) {
+            console.error("Like failed, reverting state...", error);
+            // D. Error Handling: Revert UI if backend request fails
+            setLikes(wasLiked ? likes : likes - 1);
+            setIsLiked(wasLiked);
+            if (wasLiked) {
+                localStorage.setItem(`liked_blog_${post.id}`, "true");
+            } else {
                 localStorage.removeItem(`liked_blog_${post.id}`);
             }
         }

@@ -60,20 +60,32 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
 
         // 2. Send request to the backend API to record the like
         try {
-            await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`, {
+            const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`, {
                 method: "POST",
             });
+
+            if (res.ok) {
+                const data = await res.json();
+                // 3. Sync with Backend Truth
+                setLikes(data.total_like);
+
+                if (data.message === "liked") {
+                    setIsLiked(true);
+                    localStorage.setItem(`liked_project_${item.id}`, "true");
+                } else {
+                    setIsLiked(false);
+                    localStorage.removeItem(`liked_project_${item.id}`);
+                }
+            }
         } catch (error) {
-            console.error("Like request failed:", error);
+            console.error("Like request failed, reverting state:", error);
 
             // Revert UI changes if the request fails
+            setLikes(wasLiked ? likes : likes - 1);
+            setIsLiked(wasLiked);
             if (wasLiked) {
-                setLikes((prev) => prev + 1);
-                setIsLiked(true);
                 localStorage.setItem(`liked_project_${item.id}`, "true");
             } else {
-                setLikes((prev) => prev - 1);
-                setIsLiked(false);
                 localStorage.removeItem(`liked_project_${item.id}`);
             }
         }
