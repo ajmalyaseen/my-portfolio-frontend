@@ -74,17 +74,17 @@ const timelineData: TimelineItem[] = [
 const socialLinks = [
     {
         name: "GitHub",
-        url: "https://github.com/yourusername",
+        url: "https://github.com/ajmalyaseen",
         icon: Github
     },
     {
         name: "LinkedIn",
-        url: "https://linkedin.com/in/yourusername",
+        url: "https://www.linkedin.com/in/ajmal-yaseen-pt",
         icon: Linkedin
     },
     {
         name: "Instagram",
-        url: "https://instagram.com/yourusername",
+        url: "https://www.instagram.com/yaa.sii._/",
         icon: Instagram
     },
     {
@@ -138,9 +138,19 @@ export default function AboutPage() {
                     <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground tracking-tight">
                         Hi, I'm <span className="text-gradient">Ajmal Yaseen</span>
                     </h1>
-                    <p className="text-text-muted text-lg md:text-xl leading-relaxed opacity-90">
+                    <p className="text-text-muted text-lg md:text-xl leading-relaxed opacity-90 mb-8">
                         I am a dedicated <span className="text-foreground font-semibold underline decoration-primary/30 underline-offset-4">Backend Engineer</span> based in Kerala, India. My core expertise lies in architecting robust server-side systems with Django, while maintaining a strong understanding of modern frontend technologies like Next.js and React.
                     </p>
+
+                    <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-primary/20"
+                    >
+                        <FileCode size={20} />
+                        Download CV
+                    </a>
                 </div>
             </section>
 
@@ -155,9 +165,9 @@ export default function AboutPage() {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-4 rounded-xl bg-card-bg border border-card-border hover:border-blue-500 hover:bg-card-bg/50 transition-all group"
+                            className="flex items-center gap-3 p-4 rounded-xl bg-card-bg border border-card-border hover:border-primary hover:bg-card-bg/50 transition-all group"
                         >
-                            <div className="p-2 bg-foreground/5 dark:bg-foreground/10 rounded-lg text-text-muted group-hover:text-blue-500 transition-colors">
+                            <div className="p-2 bg-foreground/5 dark:bg-foreground/10 rounded-lg text-text-muted group-hover:text-primary transition-colors">
                                 <social.icon size={20} />
                             </div>
                             <span className="font-medium text-text-muted group-hover:text-foreground">
@@ -209,7 +219,7 @@ export default function AboutPage() {
                         <div key={item.id} className="relative pl-8 md:pl-12">
 
                             {/* Timeline Indicator */}
-                            <span className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-blue-500 ring-4 ring-background"></span>
+                            <span className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-background"></span>
 
                             {/* Item Header */}
                             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">

@@ -103,8 +103,8 @@ export default function RootLayout({
             <div className="flex items-center gap-5">
               {[
                 { icon: Github, href: "https://github.com/ajmalyaseen" },
-                { icon: Linkedin, href: "https://linkedin.com/in/ajmalyaseen" },
-                { icon: Instagram, href: "https://instagram.com/ajmal_yaseen" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/ajmal-yaseen-pt" },
+                { icon: Instagram, href: "https://www.instagram.com/yaa.sii._/" },
                 { icon: Mail, href: `mailto:${CONTACT_EMAIL}` }
               ].map((social, i) => (
                 <a
@@ -119,8 +119,8 @@ export default function RootLayout({
               ))}
             </div>
 
-            <div className="text-text-muted text-[10px] uppercase font-bold tracking-[0.2em] opacity-50">
-              © 2026 Crafted with ❤️ by Ajmal Yaseen
+            <div className="text-text-muted text-[10px] uppercase font-bold tracking-[0.3em] opacity-40">
+              © 2026 / DESIGNED & DEVELOPED BY AJMAL YASEEN
             </div>
           </footer>
         </ThemeProvider>
