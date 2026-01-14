@@ -95,7 +95,7 @@ export default function BlogContent({ post }: { post: BlogPost }) {
 
         setLoading(true);
         try {
-            const res = await fetch(`${BASE_URL}/api/blogs/${post.id}/comment/create/`, {
+            const res = await fetch(`${BASE_URL}/api/blog/${post.id}/comment/create/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(commentInput),
