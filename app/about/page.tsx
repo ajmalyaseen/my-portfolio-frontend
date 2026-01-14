@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import {
     Briefcase,
@@ -23,6 +24,11 @@ import {
     RefreshCw,
     Coffee
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+    title: "About Me",
+    description: "Learn more about Ajmal Yaseen's journey as a Backend Engineer, his technical skills, and professional experience.",
+};
 
 /**
  * Interface for timeline items in the Journey section.
@@ -116,30 +122,30 @@ export default function AboutPage() {
         <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto bg-spotlight min-h-screen">
 
             {/* --- SECTION 1: INTRODUCTION (BIO) --- */}
-            <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-center mb-24 animate-in fade-in slide-in-from-bottom-6 duration-1000">
+            <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-center mb-24 animate-reveal">
                 {/* Profile Photo Container - Refined for a perfect circle */}
-                <div className="relative w-56 h-56 md:w-72 md:h-72 aspect-square rounded-full overflow-hidden border-4 border-primary/20 mx-auto shadow-2xl ring-offset-4 ring-offset-background ring-4 ring-primary/5">
+                <div className="relative w-56 h-56 md:w-72 md:h-72 aspect-square rounded-full overflow-hidden border-4 border-primary/10 mx-auto shadow-2xl ring-offset-4 ring-offset-background ring-4 ring-primary/5 hover:ring-primary/20 transition-all duration-700">
                     <Image
                         src="https://res.cloudinary.com/dgie5t9uw/image/upload/v1768320307/photo_2026-01-13_21-34-52_aihlj2.jpg"
                         alt="Ajmal Yaseen"
                         fill
-                        className="object-cover grayscale hover:grayscale-0 transition duration-700 scale-110 origin-center"
+                        className="object-cover grayscale hover:grayscale-0 transition duration-700 scale-110 origin-center hover:scale-100"
                     />
                 </div>
 
                 {/* Bio Content */}
                 <div className="text-center md:text-left">
-                    <h1 className="text-4xl font-bold mb-4 text-foreground">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground tracking-tight">
                         Hi, I'm <span className="text-gradient">Ajmal Yaseen</span>
                     </h1>
-                    <p className="text-text-muted text-lg leading-relaxed">
-                        I am a dedicated <span className="text-foreground font-semibold">Backend Engineer</span> based in Kerala, India. My core expertise lies in architecting <span className="text-foreground font-semibold">robust server-side systems</span> with Django, while maintaining a strong understanding of modern frontend technologies like Next.js and React. I am passionate about writing clean, efficient code and solving complex architectural challenges.
+                    <p className="text-text-muted text-lg md:text-xl leading-relaxed opacity-90">
+                        I am a dedicated <span className="text-foreground font-semibold underline decoration-primary/30 underline-offset-4">Backend Engineer</span> based in Kerala, India. My core expertise lies in architecting robust server-side systems with Django, while maintaining a strong understanding of modern frontend technologies like Next.js and React.
                     </p>
                 </div>
             </section>
 
             {/* --- SECTION 2: CONNECT --- */}
-            <section className="mt-24 pt-12 border-t border-card-border animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
+            <section className="mt-24 pt-12 border-t border-card-border/50 animate-reveal [animation-delay:200ms]">
                 <h2 className="text-2xl font-bold mb-8 text-foreground">Let's Connect</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -163,14 +169,14 @@ export default function AboutPage() {
             </section>
 
             {/* --- SECTION 3: TECHNICAL SKILLS --- */}
-            <section className="mb-12 mt-24 pt-12 border-t border-card-border animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
-                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground">
-                    <Code2 className="text-blue-500" /> Technical Skills
+            <section className="mb-12 mt-24 pt-12 border-t border-card-border/50 animate-reveal [animation-delay:400ms]">
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground tracking-tight">
+                    <Code2 className="text-primary" /> Technical Skills
                 </h2>
                 <div className="flex flex-wrap gap-4">
                     {techSkills.map((skill) => (
-                        <div key={skill.name} className="flex items-center gap-3 px-4 py-2 bg-card-bg border border-card-border rounded-xl text-text-muted text-sm hover:text-foreground hover:border-blue-500/50 transition-all cursor-default group">
-                            <skill.icon size={18} className="text-text-muted group-hover:text-blue-500 transition-colors" />
+                        <div key={skill.name} className="flex items-center gap-3 px-4 py-2 bg-card-bg border border-card-border rounded-xl text-text-muted text-sm hover:text-foreground hover:border-primary/50 transition-all cursor-default group hover:shadow-lg hover:shadow-primary/5">
+                            <skill.icon size={18} className="text-text-muted group-hover:text-primary transition-colors" />
                             <span className="font-medium">{skill.name}</span>
                         </div>
                     ))}
@@ -178,14 +184,14 @@ export default function AboutPage() {
             </section >
 
             {/* --- SECTION 4: SOFT SKILLS --- */}
-            <section className="mb-24 mt-12 pt-0 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
-                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground">
-                    <Users className="text-blue-500" /> Soft Skills
+            <section className="mb-24 mt-12 pt-0 animate-reveal [animation-delay:600ms]">
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground tracking-tight">
+                    <Users className="text-primary" /> Soft Skills
                 </h2>
                 <div className="flex flex-wrap gap-4">
                     {softSkills.map((skill) => (
-                        <div key={skill.name} className="flex items-center gap-3 px-4 py-2 bg-card-bg border border-card-border rounded-xl text-text-muted text-sm hover:text-foreground hover:border-blue-500/50 transition-all cursor-default group">
-                            <skill.icon size={18} className="text-text-muted group-hover:text-blue-500 transition-colors" />
+                        <div key={skill.name} className="flex items-center gap-3 px-4 py-2 bg-card-bg border border-card-border rounded-xl text-text-muted text-sm hover:text-foreground hover:border-primary/50 transition-all cursor-default group hover:shadow-lg hover:shadow-primary/5">
+                            <skill.icon size={18} className="text-text-muted group-hover:text-primary transition-colors" />
                             <span className="font-medium">{skill.name}</span>
                         </div>
                     ))}
@@ -193,9 +199,9 @@ export default function AboutPage() {
             </section >
 
             {/* --- SECTION 5: JOURNEY (EXPERIENCE & EDUCATION) --- */}
-            <section className="mb-24 mt-24 pt-12 border-t border-card-border animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-400">
-                <h2 className="text-2xl font-bold mb-12 flex items-center gap-3 text-foreground">
-                    <Briefcase className="text-blue-500" /> Journey So Far
+            <section className="mb-24 mt-24 pt-12 border-t border-card-border/50 animate-reveal [animation-delay:800ms]">
+                <h2 className="text-2xl font-bold mb-12 flex items-center gap-3 text-foreground tracking-tight">
+                    <Briefcase className="text-primary" /> Journey So Far
                 </h2>
 
                 <div className="relative border-l border-card-border ml-3 md:ml-6 space-y-12">
@@ -231,5 +237,3 @@ export default function AboutPage() {
         </div>
     );
 }
-
-

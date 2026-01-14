@@ -1,5 +1,20 @@
 import BlogContent from "@/app/components/BlogContent";
 import { API_BASE_URL } from "@/lib/config";
+import { Metadata } from 'next';
+
+type Props = {
+    params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const blog = await getBlogPost(id);
+
+    return {
+        title: blog?.title || "Blog Post",
+        description: blog?.content?.substring(0, 160).replace(/<[^>]*>/g, '') || "Read more about this blog post by Ajmal Yaseen.",
+    };
+}
 
 /**
  * Fetches a single blog post by its ID from the backend API.

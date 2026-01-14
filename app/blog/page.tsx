@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { API_BASE_URL, CLOUDINARY_BASE_URL } from "@/lib/config";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Blog",
+    description: "Insights, tutorials, and thoughts on backend engineering, Django, and modern web development by Ajmal Yaseen.",
+};
 
 
 /**

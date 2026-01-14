@@ -1,6 +1,13 @@
 // app/gallery/page.tsx
 import React from "react";
 import { API_BASE_URL, CLOUDINARY_BASE_URL } from "@/lib/config";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Gallery",
+    description: "A visual showcase of projects, photography, and creative works by Ajmal Yaseen.",
+};
+
 
 // Data Type
 interface GalleryItem {
