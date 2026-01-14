@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import LikeButton from "@/app/components/Likebutton";
 import { Github, ExternalLink, Calendar } from "lucide-react";
 import { API_BASE_URL } from "@/lib/config";
+import { getVisitorId } from "@/lib/visitorId";
 
 /**
  * Interface defining the structure of a project item.
@@ -40,7 +41,8 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
     useEffect(() => {
         const syncStatus = async () => {
             try {
-                const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`);
+                const vid = getVisitorId();
+                const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/?visitor_id=${vid}`);
                 if (res.ok) {
                     const data = await res.json();
                     setIsLiked(data.is_liked);
@@ -80,8 +82,11 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
 
         // 2. Send request to the backend API to record the like
         try {
+            const vid = getVisitorId();
             const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`, {
                 method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ visitor_id: vid })
             });
 
             if (res.ok) {

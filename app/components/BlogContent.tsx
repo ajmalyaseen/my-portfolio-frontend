@@ -5,6 +5,7 @@ import LikeButton from "@/app/components/Likebutton";
 import Link from "next/link";
 import { ArrowLeft, Send } from "lucide-react";
 import { API_BASE_URL, CLOUDINARY_BASE_URL } from "@/lib/config";
+import { getVisitorId } from "@/lib/visitorId";
 
 // Backend URL
 const BASE_URL = API_BASE_URL;
@@ -43,7 +44,8 @@ export default function BlogContent({ post }: { post: BlogPost }) {
     useEffect(() => {
         const checkLikeStatus = async () => {
             try {
-                const res = await fetch(`${BASE_URL}/api/blog/${post.id}/like/`);
+                const vid = getVisitorId();
+                const res = await fetch(`${BASE_URL}/api/blog/${post.id}/like/?visitor_id=${vid}`);
                 if (res.ok) {
                     const data = await res.json();
                     setIsLiked(data.is_liked);
@@ -82,8 +84,11 @@ export default function BlogContent({ post }: { post: BlogPost }) {
 
         // B. Send request to Backend
         try {
+            const vid = getVisitorId();
             const res = await fetch(`${BASE_URL}/api/blog/${post.id}/like/`, {
                 method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ visitor_id: vid })
             });
 
             if (!res.ok) {
