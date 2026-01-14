@@ -129,7 +129,7 @@ export default function AboutPage() {
                         src="https://res.cloudinary.com/dgie5t9uw/image/upload/v1768320307/photo_2026-01-13_21-34-52_aihlj2.jpg"
                         alt="Ajmal Yaseen"
                         fill
-                        className="object-cover grayscale hover:grayscale-0 transition duration-700 scale-110 origin-center hover:scale-100"
+                        className="object-cover md:grayscale md:hover:grayscale-0 transition duration-700 md:scale-110 origin-center md:hover:scale-100"
                     />
                 </div>
 
