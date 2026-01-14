@@ -16,10 +16,17 @@ export default function ContactForm() {
         e.preventDefault();
         setStatus("loading");
 
+        // Ensure no double slashes in URL
+        const cleanBaseUrl = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+        const targetUrl = `${cleanBaseUrl}/api/contact/`;
+
         try {
-            const res = await fetch(`${API_BASE_URL}/api/contact/`, {
+            const res = await fetch(targetUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
                 body: JSON.stringify(formData),
             });
 
@@ -28,12 +35,13 @@ export default function ContactForm() {
                 setFormData({ username: "", usermail: "", message: "" });
                 setTimeout(() => setStatus("idle"), 5000);
             } else {
-                const data = await res.json();
-                console.error("Backend Error:", data);
+                // Try to parse error response if available
+                const errorData = await res.json().catch(() => ({}));
+                console.error("Backend Error Details:", errorData);
                 setStatus("error");
             }
         } catch (error) {
-            console.error(error);
+            console.error("Contact Form Network Error:", error);
             setStatus("error");
         }
     };
