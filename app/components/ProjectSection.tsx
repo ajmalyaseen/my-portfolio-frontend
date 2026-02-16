@@ -119,10 +119,16 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
     // --- HELPER FUNCTIONS ---
 
     // Correctly formats the image URL for display
-    const getImageUrl = (path: string) => {
-        if (!path) return "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80";
-        return path;
-    };
+    const getImageUrl = (path: any) => {
+  // Debugging: Console-ൽ എന്താണ് വരുന്നതെന്ന് നോക്കാം
+  console.log("Image Path Received:", path);
+
+  if (!path) return "https://images.unsplash.com/photo-1555066931-4365d14bab8c";
+  
+  // ചിലപ്പോൾ path ഒരു string ആയിരിക്കില്ല, അതുകൊണ്ട് string ആണോ എന്ന് ചെക്ക് ചെയ്യുക
+  return typeof path === 'string' ? path : path.url; 
+};
+
 
     // Splits the tech stack string into an array of individual technologies
     const techStacks = item.techstack ? item.techstack.split(',').map(t => t.trim()) : [];
