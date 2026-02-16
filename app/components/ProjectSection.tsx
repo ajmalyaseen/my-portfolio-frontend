@@ -121,7 +121,7 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
     // Correctly formats the image URL for display
     const getImageUrl = (path: string) => {
         if (!path) return "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80";
-        return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+        return path;
     };
 
     // Splits the tech stack string into an array of individual technologies
