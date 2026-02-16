@@ -9,7 +9,7 @@ import { API_BASE_URL, CONTACT_EMAIL } from "@/lib/config";
  */
 async function getProjects() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/gallery/`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/api/project/`, { cache: "no-store" });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
