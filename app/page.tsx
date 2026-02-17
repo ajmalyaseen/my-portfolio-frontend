@@ -40,7 +40,7 @@ export default async function Home() {
       desc: "Ensuring secure deployments and seamless integration with modern frontend technologies."
     }
   ];
-
+console.log("Projects data from API:", projects);
   return (
     <div className="min-h-screen selection:bg-blue-500 font-sans pt-16 md:pt-12 bg-spotlight">
       {/* Hero Section */}
