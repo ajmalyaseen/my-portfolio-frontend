@@ -42,7 +42,7 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
         const syncStatus = async () => {
             try {
                 const vid = getVisitorId();
-                const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/?visitor_id=${vid}`);
+                const res = await fetch(`${BASE_URL}/api/project/${item.id}/like/?visitor_id=${vid}`);
                 if (res.ok) {
                     const data = await res.json();
                     setIsLiked(data.is_liked);
