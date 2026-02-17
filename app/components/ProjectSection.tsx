@@ -30,6 +30,7 @@ const BASE_URL = API_BASE_URL;
  * Displays a single project with its details, tech stack, and a like button.
  */
 export default function ProjectCard({ item }: { item: GalleryItem }) {
+    console.log("Rendering card for:", item?.title)
 
     // --- STATE MANAGEMENT ---
     // Initialize likes and liked status
