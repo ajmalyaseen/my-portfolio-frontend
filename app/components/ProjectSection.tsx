@@ -30,7 +30,7 @@ const BASE_URL = API_BASE_URL;
  * Displays a single project with its details, tech stack, and a like button.
  */
 export default function ProjectCard({ item }: { item: GalleryItem }) {
-    console.log("Rendering card for:", item?.title)
+  
 
     // --- STATE MANAGEMENT ---
     // Initialize likes and liked status
@@ -43,7 +43,7 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
         const syncStatus = async () => {
             try {
                 const vid = getVisitorId();
-                console.log("Checking like for URL:", `${BASE_URL}/api/project/${item.id}/like/?visitor_id=${vid}`);
+              
                 const res = await fetch(`${BASE_URL}/api/project/${item.id}/like/?visitor_id=${vid}`);
                 if (res.ok) {
                     const data = await res.json();
