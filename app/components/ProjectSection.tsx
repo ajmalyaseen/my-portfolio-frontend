@@ -120,13 +120,10 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
 
     // Correctly formats the image URL for display
     const getImageUrl = (path: any) => {
-  // Debugging: Console-ൽ എന്താണ് വരുന്നതെന്ന് നോക്കാം
-  console.log("Image Path Received:", path);
-
   if (!path) return "https://images.unsplash.com/photo-1555066931-4365d14bab8c";
-  
-  // ചിലപ്പോൾ path ഒരു string ആയിരിക്കില്ല, അതുകൊണ്ട് string ആണോ എന്ന് ചെക്ക് ചെയ്യുക
-  return typeof path === 'string' ? path : path.url; 
+
+  const CLOUDINARY_BASE_URL = "https://res.cloudinary.com/dgie5t9uw/";
+  return `${CLOUDINARY_BASE_URL}${path}`;
 };
 
 
