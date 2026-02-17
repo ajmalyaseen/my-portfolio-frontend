@@ -83,7 +83,7 @@ export default function ProjectCard({ item }: { item: GalleryItem }) {
         // 2. Send request to the backend API to record the like
         try {
             const vid = getVisitorId();
-            const res = await fetch(`${BASE_URL}/api/gallery/${item.id}/like/`, {
+            const res = await fetch(`${BASE_URL}/api/project/${item.id}/like/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ visitor_id: vid })
